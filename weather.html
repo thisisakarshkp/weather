@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Live Weather</h1>
+    <div class="search">
+        <input id="place" class="inputplace" type="text" value="calicut" placeholder="Enter a city">
+        <button onclick="show()">Search</button>
+    </div>
+
+    <div class="weathercard">
+        <div class="div1">
+            <div class="row1">
+                <h1 id="tempr"></h1>
+                <img id="weatherIcon" alt="Weather">
+            </div>
+            <h1 id="pn"></h1>
+            <h2 id="cond"></h2>
+        </div>
+        <div class="div2">
+            <h3>Feels like</h3>
+            <label id="fl"></label>
+            <hr>
+            <h3>Minimum temperature</h3>
+            <label id="tmin"></label>
+            <hr>
+            <h3>Maximum temperature</h3>
+            <label id="tmax"></label>
+            <hr>
+            <h3>Pressure</h3>
+            <label id="pres"></label>
+            <hr>
+            <h3>Humidity</h3>
+            <label id="hum"></label>
+        </div>
+
+    </div>
+</body>
+<script>
+    const show = async()=>{
+        let placeName=document.getElementById("place").value
+        let result=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${placeName}&appid=5b4bee0ba241d092159faf007e166080&units=metric`)
+        console.log(result);
+        const data=await result.json()
+
+        if (result.status !== 200) {
+        alert("Enter a valid city name");
+        return;
+        }
+
+        console.log(data.name);
+        console.log(data.main.temp);
+        console.log(data.main.pressure);
+        console.log(data.main.humidity);
+        let wdetails=data.weather
+        console.log(wdetails[0].icon);
+
+        
+
+        const weathericon = `Icons/${wdetails[0].icon}.png`;
+        document.getElementById("weatherIcon").src = weathericon;
+        let pn=document.getElementById("pn")
+        pn.innerText=`${data.name}`
+        let condition=document.getElementById("cond")
+        condition.innerText=`${wdetails[0].main}`
+
+        let tempr=document.getElementById("tempr")
+        tempr.innerText=`${Math.ceil(data.main.temp)}°C`
+
+        let fl=document.getElementById("fl")
+        fl.innerText=`${Math.ceil(data.main.feels_like)}°C`
+
+        let tmin=document.getElementById("tmin")
+        tmin.innerText=`${Math.ceil(data.main.temp_min)}°C`
+
+        let tmax=document.getElementById("tmax")
+        tmax.innerText=`${Math.ceil(data.main.temp_max)}°C`
+
+        let hum=document.getElementById("hum")
+        hum.innerText=`${Math.ceil(data.main.humidity)}%`
+
+        let pres=document.getElementById("pres")
+        pres.innerText=`${Math.ceil(data.main.pressure)}hPa`
+        // "temp": 29.24,
+    //"feels_like": 33.06,
+    //"temp_min": 29.24,
+    //"temp_max": 29.24,
+    //"pressure": 1009,
+    //"humidity": 69,
+    //"sea_level": 1009,
+    //"grnd_level": 1006
+
+    }
+</script>
+</html>
