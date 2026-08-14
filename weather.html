@@ -17,7 +17,7 @@
     </div>
 
     <div class="weathercard">
-        <div class="div1">
+        <div id="div1" class="div1">
             <div class="row1">
                 <h1 id="tempr"></h1>
                 <img id="weatherIcon" alt="Weather">
@@ -55,6 +55,14 @@
         alert("Enter a valid city name");
         return;
         }
+
+        document.querySelector(".weathercard").classList.add("show");
+
+        let div1 = document.getElementById("div1");
+
+        div1.style.animation = "none";
+        div1.offsetHeight;
+        div1.style.animation = "fadeUp 0.5s ease";
 
         console.log(data.name);
         console.log(data.main.temp);

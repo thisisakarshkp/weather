@@ -1,5 +1,5 @@
 body{
-    background:url('https://i.pinimg.com/1200x/29/da/bc/29dabc4a846ba5ae986bab74da2998ef.jpg');
+    background:url('https://i.pinimg.com/1200x/45/ea/34/45ea34679e0094f3632a0fc08eb2287c.jpg');
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -69,7 +69,7 @@ button{
 }
 
 .weathercard{
-    display: flex;
+    display: none;
     align-items: center;
     margin-top: 30px;
     width: 700px;
@@ -80,6 +80,30 @@ button{
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px white solid;
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.weathercard.show {
+    display: flex;
+    animation: snapPop 0.35s ease-out forwards;
+}
+
+@keyframes snapPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .div1{
@@ -89,6 +113,20 @@ button{
     border-radius: 30px;
     display: flex;
     flex-direction: column;
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .div2{
